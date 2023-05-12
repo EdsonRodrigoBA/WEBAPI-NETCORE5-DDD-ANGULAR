@@ -59,5 +59,27 @@ namespace Infraestrutura.Repositorio
                 return false;
             }
         }
+
+        public async Task<string> RetornaIdUsuario(string email)
+        {
+            try
+            {
+                using (var banco = new Contexto(_contexto))
+                {
+                    var retorno = await banco.ApplicationUsers.AsNoTracking()
+                                            .FirstOrDefaultAsync(x => x.Email.Equals(email));
+                    
+                    if(retorno != null)
+                    {
+                        return retorno.Id;
+                    }
+                    return String.Empty;
+                };
+            }
+            catch (Exception ex)
+            {
+                return String.Empty;
+            }
+        }
     }
 }

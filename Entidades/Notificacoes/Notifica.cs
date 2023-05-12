@@ -7,11 +7,16 @@ using System.Threading.Tasks;
 
 namespace Entidades.Notificacoes
 {
+
     public class Notifica
     {
         [NotMapped]
         public string NomePropriedade { get; set; }
+        [NotMapped]
+
         public string Mensagem { get; set; }
+        [NotMapped]
+
         public List<Notifica> notificacoes { get; set; }
         public Notifica()
         {

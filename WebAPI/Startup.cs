@@ -8,19 +8,23 @@ using Entidades.Entidades;
 using Infraestrutura.Configuracoes;
 using Infraestrutura.Repositorio;
 using Infraestrutura.Repositorio.Genericos;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WebAPI.Token;
 
 namespace WebAPI
 {
@@ -38,20 +42,60 @@ namespace WebAPI
         {
             services.AddDbContext<Contexto>(options =>
             options.UseSqlServer(
-            Configuration.GetConnectionString("CON_PROJECT_DDDNET5")));
-            services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = false)
-                .AddEntityFrameworkStores<Contexto>();
+                Configuration.GetConnectionString("CON_PROJECT_DDDNET5")
+            )
+            );
 
-            services.AddSingleton(typeof(IGenericos<>), typeof(RepositorioGenerico<>));
-            services.AddSingleton<INoticia, RepositorioNoticia>();
-            services.AddSingleton<IUsuario, RepositorioUsuario>();
+            services.AddDefaultIdentity<ApplicationUser>(options => 
+            { 
+                options.SignIn.RequireConfirmedAccount = false;
+                options.Tokens.EmailConfirmationTokenProvider = TokenOptions.DefaultEmailProvider; 
+            
+            })
+                .AddEntityFrameworkStores<Contexto>().AddDefaultTokenProviders();
+
+            services.AddScoped(typeof(IGenericos<>), typeof(RepositorioGenerico<>));
+            services.AddScoped<INoticia, RepositorioNoticia>();
+            services.AddScoped<IUsuario, RepositorioUsuario>();
 
             // SERVIÇO DOMINIO
-            services.AddSingleton<IServicoNoticia, ServicoNoticia>();
+            services.AddScoped<IServicoNoticia, ServicoNoticia>();
 
             // INTERFACE APLICAÇÃO
-            services.AddSingleton<IAplicacaoNoticia, AplicacaoNoticia>();
-            services.AddSingleton<IAplicacaoUsuario, AplicacaoUsuario>();
+            services.AddScoped<IAplicacaoNoticia, AplicacaoNoticia>();
+            services.AddScoped<IAplicacaoUsuario, AplicacaoUsuario>();
+
+
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+       .AddJwtBearer(option =>
+       {
+           option.TokenValidationParameters = new TokenValidationParameters
+           {
+               ValidateIssuer = false,
+               ValidateAudience = false,
+               ValidateLifetime = true,
+               ValidateIssuerSigningKey = true,
+
+               ValidIssuer = "Teste.Securiry.Bearer",
+               ValidAudience = "Teste.Securiry.Bearer",
+               IssuerSigningKey = JwtSecuriryKey.Create("Secret_Key-12345678")
+           };
+
+           option.Events = new JwtBearerEvents
+           {
+               OnAuthenticationFailed = context =>
+               {
+                   Console.WriteLine("OnAuthenticationFailed: " + context.Exception.Message);
+                   return Task.CompletedTask;
+               },
+               OnTokenValidated = context =>
+               {
+                   Console.WriteLine("OnTokenValidated: " + context.SecurityToken);
+                   return Task.CompletedTask;
+               }
+           };
+       });
+
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
@@ -71,7 +115,7 @@ namespace WebAPI
             }
 
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

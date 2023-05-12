@@ -28,14 +28,14 @@ namespace Infraestrutura.Configuracoes
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer(ObterStringConexao());
+                 optionsBuilder.UseSqlServer(ObterStringConexao());
                 base.OnConfiguring(optionsBuilder);
 
             }
         }
         public String ObterStringConexao()
         {
-            return "Server=DESKTOP-6VTUT16\\SQLEXPRESS; Database=API_DDD_NET5_554544; User Id =exattoSite; Password =832285;Max Pool Size=2024";
+            return "Server=DESKTOP-6VTUT16\\SQLEXPRESS; Database=API_DDD_NET5_554544; User Id=sa; Password=832285;Max Pool Size=2024";
         }
     }
 }

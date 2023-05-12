@@ -22,7 +22,7 @@ namespace Infraestrutura.Repositorio.Genericos
 
         public async Task Adiciona(T objetc)
         {
-            using (var data = new DbContext(_contexto))
+            using (var data = new Contexto(_contexto))
             {
                 await data.Set<T>().AddAsync(objetc);
                 await data.SaveChangesAsync();
@@ -31,7 +31,7 @@ namespace Infraestrutura.Repositorio.Genericos
 
         public async Task Atualizar(T objetc)
         {
-            using (var data = new DbContext(_contexto))
+            using (var data = new Contexto(_contexto))
             {
                  data.Set<T>().Update(objetc);
                  await data.SaveChangesAsync();
@@ -40,7 +40,7 @@ namespace Infraestrutura.Repositorio.Genericos
 
         public async Task<T> BuscarPorId(int Id)
         {
-            using (var data = new DbContext(_contexto))
+            using (var data = new Contexto(_contexto))
             {
                 return await  data.Set<T>().FindAsync(Id);
             }
@@ -49,7 +49,7 @@ namespace Infraestrutura.Repositorio.Genericos
 
         public async Task Excluir(T objetc)
         {
-            using (var data = new DbContext(_contexto))
+            using (var data = new Contexto(_contexto))
             {
                 data.Set<T>().Remove(objetc);
                 await data.SaveChangesAsync();
@@ -58,7 +58,7 @@ namespace Infraestrutura.Repositorio.Genericos
 
         public async Task<List<T>> ListarTodos()
         {
-            using (var data = new DbContext(_contexto))
+            using (var data = new Contexto(_contexto))
             {
                 return await data.Set<T>().AsNoTracking().ToListAsync();
             }

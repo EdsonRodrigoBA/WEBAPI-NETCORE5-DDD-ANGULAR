@@ -27,5 +27,11 @@ namespace Aplicacao.Aplicacoes
         {
             return await _iusuario.ExisteUsuario(email, senha);
         }
+
+        public async Task<string> RetornaIdUsuario(string email)
+        {
+            return await _iusuario.RetornaIdUsuario(email);
+
+        }
     }
 }
