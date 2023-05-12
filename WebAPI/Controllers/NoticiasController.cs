@@ -45,6 +45,7 @@ namespace WebAPI.Controllers
             
             return Ok(noticia.notificacoes);
         }
+
         [Authorize]
         [Produces("application/json")]
         [HttpPut("/api/AtualizarNoticia")]
