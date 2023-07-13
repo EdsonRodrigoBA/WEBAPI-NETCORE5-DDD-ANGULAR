@@ -1,0 +1,19 @@
+<div class="conteudo-login">
+
+    <form action="" class="conteudo-form" [formGroup]="loginForm">
+        <div>
+            <input type="text" class="input-login" placeholder="Email" formControlName="email" />
+
+
+            <div class="mensagem-erro"
+                *ngIf="loginForm.get('email')?.errors?.['required'] && loginForm.get('email')?.errors?.['touched']">
+                Campo Obrigatório
+            </div>
+
+            <div class="mensagem-erro"
+                *ngIf="loginForm.get('email')?.errors?.['email'] && loginForm.get('email')?.errors?.['touched']">
+                Formato do E-mail não é válido
+            </div>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,38 @@
+.conteudo-login {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px;
+    .conteudo-form{
+        border-radius: 10px;
+        background-color: #fff;
+        box-shadow: 0 30px 60px 0 gray;
+        text-align: center;
+        width: 45%;
+        height: 350px;
+        transition: all 0.5 ease-in-out;
+    }
+
+    .conteudo-form:hover{
+        box-shadow: 0 30px 60px 0 gray;
+
+    }
+}
+
+.input-login{
+    background-color: #f6f6f6;
+    border: none;
+    padding: 15px 0px;
+    text-align: center;
+    font-size: 15px;
+    margin: 5px;
+    width: 90%;
+    border: 2px solid #f6f6f6;
+    transition: all 0.5 ease-in-out;
+    border-radius: 5px 5px 5px 5px;
+}
+.mensagem-erro{
+    font-size: 14px;
+    color: red;
+    font-family: Arial, Helvetica, sans-serif;
+}
