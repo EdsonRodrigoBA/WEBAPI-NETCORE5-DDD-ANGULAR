@@ -47,11 +47,11 @@ namespace WebAPI
             )
             );
 
-            services.AddDefaultIdentity<ApplicationUser>(options => 
-            { 
+            services.AddDefaultIdentity<ApplicationUser>(options =>
+            {
                 options.SignIn.RequireConfirmedAccount = false;
-                options.Tokens.EmailConfirmationTokenProvider = TokenOptions.DefaultEmailProvider; 
-            
+                options.Tokens.EmailConfirmationTokenProvider = TokenOptions.DefaultEmailProvider;
+
             })
                 .AddEntityFrameworkStores<Contexto>().AddDefaultTokenProviders();
 
@@ -68,40 +68,81 @@ namespace WebAPI
 
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-       .AddJwtBearer(option =>
-       {
-           option.TokenValidationParameters = new TokenValidationParameters
-           {
-               ValidateIssuer = false,
-               ValidateAudience = false,
-               ValidateLifetime = true,
-               ValidateIssuerSigningKey = true,
-
-               ValidIssuer = "Teste.Securiry.Bearer",
-               ValidAudience = "Teste.Securiry.Bearer",
-               IssuerSigningKey = JwtSecuriryKey.Create("Secret_Key-12345678")
-           };
-
-           option.Events = new JwtBearerEvents
-           {
-               OnAuthenticationFailed = context =>
+               .AddJwtBearer(option =>
                {
-                   Console.WriteLine("OnAuthenticationFailed: " + context.Exception.Message);
-                   return Task.CompletedTask;
-               },
-               OnTokenValidated = context =>
-               {
-                   Console.WriteLine("OnTokenValidated: " + context.SecurityToken);
-                   return Task.CompletedTask;
-               }
-           };
-       });
+                   option.TokenValidationParameters = new TokenValidationParameters
+                   {
+                       ValidateIssuer = false,
+                       ValidateAudience = false,
+                       ValidateLifetime = true,
+                       ValidateIssuerSigningKey = true,
+
+                       ValidIssuer = "Teste.Securiry.Bearer",
+                       ValidAudience = "Teste.Securiry.Bearer",
+                       IssuerSigningKey = JwtSecuriryKey.Create("Secret_Key-12345678")
+                   };
+
+                   option.Events = new JwtBearerEvents
+                   {
+                       OnAuthenticationFailed = context =>
+                       {
+                           Console.WriteLine("OnAuthenticationFailed: " + context.Exception.Message);
+                           return Task.CompletedTask;
+                       },
+                       OnTokenValidated = context =>
+                       {
+                           Console.WriteLine("OnTokenValidated: " + context.SecurityToken);
+                           return Task.CompletedTask;
+                       }
+                   };
+               });
 
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebAPI", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo
+                {
+
+                    Title = "Web Api DDD Net5 - AngulaR - Listagem de Noticias ",
+                    Version = "v1",
+                    Description = "Web API DDD NET 5 com Front em Angular",
+                    Contact = new OpenApiContact()
+                    {
+
+
+                        Name = "EDSON DEVELOP",
+                        Url = new Uri("https://noticiasApiDDDNet5.com.br/"),
+                        Email = "",
+                    }
+
+                });
+                //c.EnableAnnotations();
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    Description = @"Enter 'Bearer' [space] and your token!",
+                    Name = "Authorization",
+                    In = ParameterLocation.Header,
+                    Type = SecuritySchemeType.ApiKey,
+                    Scheme = "Bearer"
+                });
+
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference
+                            {
+                                Type = ReferenceType.SecurityScheme,
+                                Id = "Bearer"
+                            },
+                            Scheme = "oauth2",
+                            Name = "Bearer",
+                            In= ParameterLocation.Header
+                        },
+                        new List<string> ()
+                    }
+                });
             });
         }
 
@@ -115,11 +156,11 @@ namespace WebAPI
             app.UseCors(b => b.WithOrigins(urlCliente1, urlCliente2));
             */
             #region Novo
-                        var urlCliente3 = "http://localhost:4200";
-                        app.UseCors(x => x
-                 .AllowAnyOrigin()
-                 .AllowAnyMethod()
-                 .AllowAnyHeader().WithOrigins(urlCliente3));
+            var urlCliente3 = "http://localhost:4200";
+            app.UseCors(x => x
+     .AllowAnyOrigin()
+     .AllowAnyMethod()
+     .AllowAnyHeader().WithOrigins(urlCliente3));
             #endregion
             if (env.IsDevelopment())
             {

@@ -31,6 +31,14 @@ namespace WebAPI.Controllers
             return Ok(noticias);
         }
 
+        [Authorize]
+        [Produces("application/json")]
+        [HttpGet("/api/ListarNoticiasCustomizado")]
+        public async Task<IActionResult> ListarNoticiasCustomizada()
+        {
+            var noticias = await _iaplicacaoNoticia.ListarNoticiasCustomizado();
+            return Ok(noticias);
+        }
 
         [Authorize]
         [Produces("application/json")]

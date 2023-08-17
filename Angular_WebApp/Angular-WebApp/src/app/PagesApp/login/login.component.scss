@@ -3,7 +3,8 @@
     justify-content: center;
     align-items: center;
     margin: 10px;
-    .conteudo-form{
+
+    .conteudo-form {
         border-radius: 10px;
         background-color: #fff;
         box-shadow: 0 30px 60px 0 gray;
@@ -13,13 +14,13 @@
         transition: all 0.5 ease-in-out;
     }
 
-    .conteudo-form:hover{
+    .conteudo-form:hover {
         box-shadow: 0 30px 60px 0 gray;
 
     }
 }
 
-.input-login{
+.input-login {
     background-color: #f6f6f6;
     border: none;
     padding: 15px 0px;
@@ -31,8 +32,40 @@
     transition: all 0.5 ease-in-out;
     border-radius: 5px 5px 5px 5px;
 }
-.mensagem-erro{
+
+.mensagem-erro {
     font-size: 14px;
     color: red;
     font-family: Arial, Helvetica, sans-serif;
+}
+
+.input-submit {
+    background-color: #8d448d;
+    border: none;
+    color: white;
+    padding: 15px 0px;
+    margin-top: 5px;
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 13px;
+    box-shadow: 0 10px 30px 0 #8f2a8b;
+    transition: all 0.3s ease-in-out;
+    width: 60%;
+    cursor: pointer;
+}
+
+.logo {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    background-color: #8d448d;
+    border: none;
+    color: white;
+    text-transform: uppercase;
+    font-size: 13px;
+    box-shadow: 0 10px 30px 0 #8f2a8b;
+    width: 95%;
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px auto;
 }

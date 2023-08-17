@@ -1,5 +1,6 @@
 ﻿using Aplicacao.Interfaces.Generics;
 using Entidades.Entidades;
+using Entidades.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,5 +16,7 @@ namespace Aplicacao.Interfaces
         Task AtualizarNoticia(Noticia noticia);
         Task ExcluirNoticia(Noticia noticia);
         Task<List<Noticia>> ListarNoticias();
+        Task<List<NoticiaViewModel>> ListarNoticiasCustomizado();
+
     }
 }
