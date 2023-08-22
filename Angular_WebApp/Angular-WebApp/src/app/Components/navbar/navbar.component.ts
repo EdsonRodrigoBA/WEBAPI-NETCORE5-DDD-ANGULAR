@@ -20,4 +20,11 @@ export class NavbarComponent implements OnInit{
     this.autenticaService.LimparToken();
     this.router.navigate(["/login"]);
   }
+
+  novaNoticia(){
+
+    this.router.navigate(["/addnoticia"]);
+
+  }
+
 }

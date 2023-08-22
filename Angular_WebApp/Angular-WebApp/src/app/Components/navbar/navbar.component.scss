@@ -22,11 +22,33 @@
         justify-content: center;
         align-items: center;
 
+        .btn-add-noticia {
+            font-family: cursive;
+            height: 40px;
+            width: 80px;
+            background: #fff;
+            border-radius: 10px;
+            margin-right: 8px;
+            cursor: pointer;
+            font-size: 12px;
+            font-family: sans-serif;
+            font-weight: 600;
+            text-align: center;
+            align-items: center;
+            display: flex;
+            justify-content: center;
+            color: #8d448b;
+            box-shadow: 0 1px 5px 0 black;
+
+        }
+
         .foto-usuario {
             height: 40px;
             width: 40px;
             background: #fff;
             border-radius: 100%;
+            margin-right: 8px;
+
         }
 
         .btn-sair {

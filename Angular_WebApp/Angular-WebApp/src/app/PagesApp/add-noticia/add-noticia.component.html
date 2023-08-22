@@ -1,0 +1,31 @@
+<app-navbar></app-navbar>
+<div class="container-form">
+    <form action="" class="conteudo-form" [formGroup]="addNoticiaForm" (submit)="submitAddNoticia()">
+
+        <div>
+            <input type="text" class="input" placeholder="titulo" formControlName="titulo" />
+
+
+            <div class="mensagem-erro"
+                *ngIf="addNoticiaForm.get('titulo')?.errors?.['required'] && addNoticiaForm.get('titulo')?.['touched']">
+                Campo Obrigatório
+            </div>
+
+        </div>
+        <div>
+            <textarea class="textarea-noticia" formControlName="informacao" placeholder="Informacao"></textarea>
+
+            <div class="mensagem-erro"
+                *ngIf="addNoticiaForm.get('informacao')?.errors?.['informacao'] && addNoticiaForm.get('informacao')?.['touched']">
+                Campo Obrigatório
+            </div>
+
+
+        </div>
+        <div class="div-btn-add">
+            <button class="input-add" type="submit" [disabled]="!addNoticiaForm.valid">Salvar</button>
+        </div>
+    </form>
+
+
+</div>

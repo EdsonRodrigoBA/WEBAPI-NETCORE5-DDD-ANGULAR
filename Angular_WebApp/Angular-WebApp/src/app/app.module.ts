@@ -9,6 +9,7 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { NoticiasComponent } from './PagesApp/noticias/noticias.component';
 import { NavbarComponent } from './Components/navbar/navbar.component';
 import { Interceptor } from './Interceptor/interceptor';
+import { AddNoticiaComponent } from './PagesApp/add-noticia/add-noticia.component';
 
 const serviceAutentica = [Interceptor]
 
@@ -18,6 +19,7 @@ const serviceAutentica = [Interceptor]
     LoginComponent,
     NoticiasComponent,
     NavbarComponent,
+    AddNoticiaComponent,
     
   ],
   imports: [
