@@ -1,14 +1,15 @@
 import { HttpEvent, HttpHandler, HttpHeaders, HttpInterceptor, HttpRequest } from "@angular/common/http";
-import { Observable, map } from "rxjs";
+import { Observable, finalize, map } from "rxjs";
 import { AutenticSaervice } from "../Services/Autentica.service";
 import { Injectable } from "@angular/core";
+import { NgxSpinnerService } from "ngx-spinner";
 
 @Injectable({
     providedIn: 'root'
 })
 export class Interceptor implements HttpInterceptor{
     
-    constructor(private autenticSaervice : AutenticSaervice){
+    constructor(private autenticSaervice : AutenticSaervice, private spinner: NgxSpinnerService ){
 
 
     }
@@ -30,11 +31,14 @@ export class Interceptor implements HttpInterceptor{
         }
 
         let request = req.clone({headers});
-
+        this.spinner.show();
         return next.handle(request).pipe(
             map((event) =>{
 
                 return event
+            }),
+            finalize(() => {
+                this.spinner.hide();
             })
         )
     }

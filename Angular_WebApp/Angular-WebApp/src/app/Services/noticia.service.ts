@@ -22,4 +22,8 @@ export class NoticiaService{
         return this.httpClient.get<Array<NoticiaViewModel>>(`${this.baseUrl}/ListarNoticiasCustomizado`)
     }
 
+    AdicionarNoticia(NoticiaViewModel: NoticiaViewModel){
+        return this.httpClient.post<any>(`${this.baseUrl}/AdicionarNoticia`,NoticiaViewModel);
+    }
+
 }

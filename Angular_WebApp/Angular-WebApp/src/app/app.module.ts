@@ -10,6 +10,8 @@ import { NoticiasComponent } from './PagesApp/noticias/noticias.component';
 import { NavbarComponent } from './Components/navbar/navbar.component';
 import { Interceptor } from './Interceptor/interceptor';
 import { AddNoticiaComponent } from './PagesApp/add-noticia/add-noticia.component';
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
 const serviceAutentica = [Interceptor]
 
@@ -27,7 +29,8 @@ const serviceAutentica = [Interceptor]
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
-
+    NgxSpinnerModule,
+    BrowserAnimationsModule
 
   ],
   providers: [

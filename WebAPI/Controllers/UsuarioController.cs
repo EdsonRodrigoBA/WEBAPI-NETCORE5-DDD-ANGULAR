@@ -98,7 +98,6 @@ namespace WebAPI.Controllers
             }
             var resultado = await
                 _signInManager.PasswordSignInAsync(user, login.senha, false, lockoutOnFailure: false);
-
             if (resultado.Succeeded)
             {
                 var IdUsuario = await _iaplicacaoUsuario.RetornaIdUsuario(login.email);

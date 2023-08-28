@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { NoticiaViewModel } from 'src/app/Models/NoticiaViewModel';
+import { NoticiaService } from 'src/app/Services/noticia.service';
 
 @Component({
   selector: 'app-add-noticia',
@@ -10,7 +12,7 @@ import { Router } from '@angular/router';
 export class AddNoticiaComponent implements OnInit {
 
   addNoticiaForm!: FormGroup;
-  constructor(private formBuilder: FormBuilder, private router: Router) { }
+  constructor(private formBuilder: FormBuilder, private router: Router,private noticiaService: NoticiaService ) { }
 
 
   ngOnInit(): void {
@@ -24,9 +26,26 @@ export class AddNoticiaComponent implements OnInit {
 
   submitAddNoticia(){
 
-    const dadosNoticiaForm = this.addNoticiaForm.getRawValue();
-    debugger
-    this.router.navigate(["/noticias"]);
+    const dadosNoticiaForm = this.addNoticiaForm.getRawValue() as NoticiaViewModel;
+
+    var noticia = new NoticiaViewModel();
+    noticia.titulo = dadosNoticiaForm.titulo;
+    noticia.informacao = dadosNoticiaForm.informacao;
+
+    this.noticiaService.AdicionarNoticia(noticia).subscribe({
+      next: (value) => {
+        this.router.navigate(["/noticias"]);
+        //console.log(value);
+      },
+      error(err) {
+        
+        console.log(err);
+      },
+      complete: () => {
+
+        console.log("");
+      },
+    }); 
 
   }
 
